@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MailIcon from '@material-ui/icons/Mail';
 import './style.css';
@@ -25,32 +24,14 @@ import {
 
 const drawerWidth = 240;
 const useStylesTextInput = makeStyles((theme) => ({
-    root: {
-        border: '1px solid #e2e2e1',
-        overflow: 'hidden',
 
-        borderRadius: 4,
-        backgroundColor: '#fcfcfb',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:hover': {
-            backgroundColor: '#fff',
-        },
-        '&$focused': {
-            backgroundColor: '#fff',
-            boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-            borderColor: theme.palette.primary.main,
-        },
-        textField: {
-            marginRight: '20px',
-        }
-    },
-    focused: {},
     textField: {
         marginRight: '20px',
         width: '83px',
     },
     div: {
         display: 'flex',
+        justifyContent: 'center',
     }
 }));
 const useStyles = makeStyles((theme) => ({
@@ -550,17 +531,6 @@ export default function InventoryPage() {
                             label="Availability"
                             className={'availability'}
                         />
-                        {/* <FormControlLabel
-                            control={
-                                <Switch
-                                    disableRipple
-                                    checked={item.availability}
-                                    onChange={() => { handleChangeAvailability(item.availability, item.itemNo) }}
-                                    value={item.availability}
-                                />
-                            }
-                            label="Availability"
-                        /> */}
                         {item.collapsed ? <IconButton color="primary" component="span" onClick={() => {
                             toggleExpander(item.collapsed, item.itemNo)
                         }}>
