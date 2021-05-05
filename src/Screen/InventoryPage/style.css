@@ -1,0 +1,63 @@
+.table-container {
+  margin: 10px;
+  padding: 0;
+  border: 1px solid #e7e7e7;
+  border-radius: 6px;
+}
+table {
+  width: 100%;
+}
+td.leftAlign {
+  text-align: left;
+}
+th {
+  color: #a9b1c3;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.09px;
+  line-height: 16px;
+  text-transform: uppercase;
+  padding: 14px 20px;
+}
+td {
+  padding: 14px 20px;
+}
+
+td.subItem {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+td.subItem1 {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+tr.text {
+  color: #333333;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+td.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.availability {
+  color: #7c7c7c;
+  font-family: Lato;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.93px;
+  line-height: 16px;
+  text-align: right;
+}
