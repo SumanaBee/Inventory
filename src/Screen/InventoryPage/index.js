@@ -102,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
+        boxShadow: '0 0px 21px -6px #7777776e',
     },
     drawerOpen: {
         width: drawerWidth,
@@ -116,21 +117,21 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(8) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(7) + 1,
-        },
+        width: '80px',
+        // [theme.breakpoints.up('sm')]: {
+        //     width: theme.spacing(7) + 1,
+        // },
     },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0px 15px',
         ...theme.mixins.toolbar,
+        padding: '18px 15px 20px 15px',
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        // padding: '40px',
     },
     inventoryBuilder: {
         color: '#333333',
@@ -138,8 +139,25 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '600',
         letterSpacing: 0,
         lineHeight: '48px',
-        textAlign: 'left'
+        textAlign: 'left',
+        padding: '20px 50px',
+        boxShadow: '0 -25px 85px 0px #7777776e',
     },
+    logo: {
+        // width: '40px',
+        // height: '40px',
+        padding: '10px 18px',
+        background: '#018fb5',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '26px',
+        color: '#fcfcfb',
+        fontSize: '21px',
+    },
+    menuItems: {
+        paddingLeft: '11px',
+    }
 }));
 
 
@@ -735,18 +753,19 @@ export default function InventoryPage() {
             >
                 <div className={classes.toolbar}>
                     <div className={classes.menuIcon} onClick={() => { open ? handleDrawerClose() : handleDrawerOpen() }}>
-                        {open ? 'Robosoft' : 'R'}
+                        <div className={classes.logo}><b>{open ? 'Robosoft' : 'R'}</b></div>
                     </div>
                 </div>
-                <Divider />
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
+                <div className={classes.menuItems}>
+                    <List >
+                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                            <ListItem button key={text} >
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.inventoryBuilder}> Inventory Builder </div>
