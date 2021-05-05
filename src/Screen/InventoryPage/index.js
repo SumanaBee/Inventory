@@ -19,7 +19,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
-import purple from '@material-ui/core/colors/purple';
 import {
     fade,
 } from '@material-ui/core/styles';
@@ -252,19 +251,141 @@ export default function InventoryPage() {
                     itemName: 'Breads & Dairy',
                     availability: true,
                     collapsed: false,
+                    subItems: [
+                        {
+                            itemNo: 21,
+                            itemName: 'Breads',
+                            availability: true,
+                            collapsed: false,
+                            subItems: [
+                                {
+                                    itemNo: 211,
+                                    itemName: 'Wheat Bread',
+                                    color: '#00B128',
+                                    option: 'Small',
+                                    sku_id: 'SKU02596058',
+                                    stock: '10',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                                {
+                                    itemNo: 212,
+                                    itemName: 'Brown Bread',
+                                    color: '#00B129',
+                                    option: 'Medium',
+                                    sku_id: 'SKU02596059',
+                                    stock: '23',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                                {
+                                    itemNo: 213,
+                                    itemName: 'Banana Bread',
+                                    color: '#00B130',
+                                    option: 'Large',
+                                    sku_id: 'SKU02596061',
+                                    stock: '34',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                                {
+                                    itemNo: 214,
+                                    itemName: 'Multigrain Bread',
+                                    color: '#00B131',
+                                    option: 'Medium',
+                                    sku_id: 'SKU02596062',
+                                    stock: '50',
+                                    unlimited: false,
+                                    edit: false,
+                                }
+                            ],
+                        },
+                        {
+                            itemNo: 22,
+                            itemName: 'Dairy',
+                            availability: true,
+                            collapsed: false,
+                            subItems: [
+                                {
+                                    itemNo: 221,
+                                    itemName: 'Milk',
+                                    color: '#00B132',
+                                    option: 'Small',
+                                    sku_id: 'SKU02596063',
+                                    stock: '2',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                                {
+                                    itemNo: 222,
+                                    itemName: 'Curd',
+                                    color: '#00B133',
+                                    option: 'Small',
+                                    sku_id: 'SKU02596064',
+                                    stock: '5',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                                {
+                                    itemNo: 223,
+                                    itemName: 'Ghee',
+                                    color: '#00B134',
+                                    option: 'Small',
+                                    sku_id: 'SKU02596065',
+                                    stock: '1',
+                                    unlimited: false,
+                                    edit: false,
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     itemNo: 3,
                     itemName: 'Snacks',
                     availability: true,
                     collapsed: false,
+                    subItems: [
+                        {
+                            itemNo: 31,
+                            itemName: 'Chips',
+                            color: '#00B135',
+                            option: 'Small',
+                            sku_id: 'SKU02596066',
+                            stock: '10',
+                            unlimited: false,
+                            edit: false,
+                        },
+                        {
+                            itemNo: 32,
+                            itemName: 'Biscuit',
+                            color: '#00B136',
+                            option: 'Medium',
+                            sku_id: 'SKU02596067',
+                            stock: '23',
+                            unlimited: false,
+                            edit: false,
+                        },
+                    ],
                 },
                 {
                     itemNo: 4,
                     itemName: 'Cleaning and Household',
                     availability: true,
                     collapsed: false,
-                }
+                    subItems: [
+                        {
+                            itemNo: 41,
+                            itemName: 'Bleaching powder',
+                            color: '#00B137',
+                            option: 'Large',
+                            sku_id: 'SKU02596068',
+                            stock: '3',
+                            unlimited: false,
+                            edit: false,
+                        }
+                    ],
+                },
             ]);
         } else {
             setItems(JSON.parse(localStorage.getItem('InvertoryItem')));
@@ -287,6 +408,10 @@ export default function InventoryPage() {
                                 item2.edit = !edit;
                             }
                         })
+                    } else {
+                        if (item1.itemNo === itemNo) {
+                            item1.edit = !edit;
+                        }
                     }
                 })
             }
@@ -331,6 +456,10 @@ export default function InventoryPage() {
                                 item2.stock = value;
                             }
                         })
+                    } else {
+                        if (item1.itemNo === itemNo) {
+                            item1.stock = value;
+                        }
                     }
                 })
             }
@@ -348,6 +477,10 @@ export default function InventoryPage() {
                                 item2.unlimited = !unlimited;
                             }
                         })
+                    } else {
+                        if (item1.itemNo === itemNo) {
+                            item1.unlimited = !unlimited;
+                        }
                     }
                 })
             }
@@ -421,96 +554,156 @@ export default function InventoryPage() {
                             </IconButton>}
                     </td>
                 </tr>
-                {
-                    item.collapsed && item.subItems && item.subItems.length > 0 && item.subItems.map((item1, j) => {
-                        return (
-                            <>
-                                <tr key={"subItems-" + j} >
-                                    <td colSpan={5} className={'leftAlign subItem'}> {(item1.itemName)}</td>
-                                    <td colSpan={1}>
-                                        <FormControlLabel
-                                            control={
-                                                <Switch
-                                                    checked={item1.availability}
-                                                    onChange={handleChangeAvailability(item1.availability, item1.itemNo)}
-                                                    value={item1.availability}
-                                                />
-                                            }
-                                            label="Availability"
-                                            className={'availability'}
-                                        />
-                                        {item1.collapsed ? <IconButton color="primary" component="span" onClick={() => {
-                                            toggleExpander(item1.collapsed, item1.itemNo)
-                                        }}>
-                                            < RemoveIcon />
-                                        </IconButton> : <IconButton color="primary" component="span" onClick={() => {
-                                            toggleExpander(item1.collapsed, item1.itemNo)
-                                        }}>
-                                                <AddIcon />
-                                            </IconButton>}
-                                    </td>
-                                </tr>
-                                {item1.collapsed && item1.subItems && item1.subItems.length > 0 && item1.subItems.map((item2, k) => (
-                                    <tr key={"subItems1-" + k} className={'text'} >
-                                        <td className={'leftAlign'} colSpan={1} >{(item2.itemName)}</td>
-                                        <td colSpan={1}>{(item2.color)}</td>
-                                        <td colSpan={1}>{(item2.option)}</td>
-                                        <td colSpan={1}>{(item2.sku_id)}</td>
-                                        <td colSpan={1}>{item2.edit ?
-                                            <div className={useStylesInput.div}>
 
-                                                <TextField
-                                                    className={useStylesInput.textField}
-                                                    type="number"
-                                                    disableUnderline
-                                                    InputProps={{
-                                                        inputProps: {
-                                                            max: 500, min: 0
-                                                        }
-                                                    }}
-                                                    variant="filled"
-                                                    label="Enter value"
-                                                    value={item2.stock}
-                                                    disabled={item2.unlimited ? true : false}
-                                                    onChange={(event) => {
-                                                        console.log('handleTextStock itemNo: ', event.target.value);
-                                                        handleTextStock(event.target.value, item2.itemNo)
-                                                    }}
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                        <Checkbox
-                                                            checked={item2.unlimited}
-                                                            onChange={() => { handleChangeStock(item2.unlimited, item2.itemNo); }}
-                                                            value={item2.unlimited}
-                                                        />
-                                                    }
-                                                    label="Unlimited"
-                                                />
-                                            </div>
-                                            :
-                                            item2.unlimited ? 'Unlimited' : item2.stock}
-                                        </td>
-                                        <td colSpan={1}>{item2.edit ?
-                                            <IconButton component="span" className={classes.saveBtn} onClick={() => {
-                                                toggleEdit(item2.edit, item2.itemNo)
+                {item.collapsed && item.subItems && item.subItems.length > 0 && item.subItems.map((item1, j) => {
+                    return (
+                        <>
+                            {console.log('item1.sku_id: ', item1.sku_id)}
+                            {item1.sku_id === undefined ?
+                                <>
+                                    <tr key={"subItems-" + j} >
+                                        <td colSpan={5} className={'leftAlign subItem'}> {(item1.itemName)}</td>
+                                        <td colSpan={1}>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
+                                                        checked={item1.availability}
+                                                        onChange={handleChangeAvailability(item1.availability, item1.itemNo)}
+                                                        value={item1.availability}
+                                                    />
+                                                }
+                                                label="Availability"
+                                                className={'availability'}
+                                            />
+                                            {item1.collapsed ? <IconButton color="primary" component="span" onClick={() => {
+                                                toggleExpander(item1.collapsed, item1.itemNo)
                                             }}>
-                                                <div style={{ marginRight: '5px' }}>Save </div> <SaveIcon fontSize="small" style={{ margiLeft: "5px" }} />
-                                            </IconButton>
-                                            :
-                                            <IconButton color="primary" component="span" onClick={() => {
-                                                toggleEdit(item2.edit, item2.itemNo)
+                                                < RemoveIcon />
+                                            </IconButton> : <IconButton color="primary" component="span" onClick={() => {
+                                                toggleExpander(item1.collapsed, item1.itemNo)
                                             }}>
-                                                <CreateIcon />
-                                            </IconButton>
-                                        }
+                                                    <AddIcon />
+                                                </IconButton>}
                                         </td>
                                     </tr>
-                                ))}
-                            </>
-                        );
-                    })
-                }
+                                    {item1.collapsed && item1.subItems && item1.subItems.length > 0 && item1.subItems.map((item2, k) => (
+                                        <tr key={"subItems1-" + k} className={'text'} >
+                                            <td className={'leftAlign'} colSpan={1} >{(item2.itemName)}</td>
+                                            <td colSpan={1}>{(item2.color)}</td>
+                                            <td colSpan={1}>{(item2.option)}</td>
+                                            <td colSpan={1}>{(item2.sku_id)}</td>
+                                            <td colSpan={1}>{item2.edit ?
+                                                <div className={useStylesInput.div}>
+
+                                                    <TextField
+                                                        className={useStylesInput.textField}
+                                                        type="number"
+                                                        disableUnderline
+                                                        InputProps={{
+                                                            inputProps: {
+                                                                max: 500, min: 0
+                                                            }
+                                                        }}
+                                                        variant="filled"
+                                                        label="Enter value"
+                                                        value={item2.stock}
+                                                        disabled={item2.unlimited ? true : false}
+                                                        onChange={(event) => {
+                                                            console.log('handleTextStock itemNo: ', event.target.value);
+                                                            handleTextStock(event.target.value, item2.itemNo)
+                                                        }}
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                checked={item2.unlimited}
+                                                                onChange={() => { handleChangeStock(item2.unlimited, item2.itemNo); }}
+                                                                value={item2.unlimited}
+                                                            />
+                                                        }
+                                                        label="Unlimited"
+                                                    />
+                                                </div>
+                                                :
+                                                item2.unlimited ? 'Unlimited' : item2.stock}
+                                            </td>
+                                            <td colSpan={1}>{item2.edit ?
+                                                <IconButton component="span" className={classes.saveBtn} onClick={() => {
+                                                    toggleEdit(item2.edit, item2.itemNo)
+                                                }}>
+                                                    <div style={{ marginRight: '5px' }}>Save </div> <SaveIcon fontSize="small" style={{ margiLeft: "5px" }} />
+                                                </IconButton>
+                                                :
+                                                <IconButton color="primary" component="span" onClick={() => {
+                                                    toggleEdit(item2.edit, item2.itemNo)
+                                                }}>
+                                                    <CreateIcon />
+                                                </IconButton>
+                                            }
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </>
+                                :
+                                <tr key={"subItems1-" + i} className={'text'} >
+                                    <td className={'leftAlign'} colSpan={1} >{(item1.itemName)}</td>
+                                    <td colSpan={1}>{(item1.color)}</td>
+                                    <td colSpan={1}>{(item1.option)}</td>
+                                    <td colSpan={1}>{(item1.sku_id)}</td>
+                                    <td colSpan={1}>{item1.edit ?
+                                        <div className={useStylesInput.div}>
+
+                                            <TextField
+                                                className={useStylesInput.textField}
+                                                type="number"
+                                                disableUnderline
+                                                InputProps={{
+                                                    inputProps: {
+                                                        max: 500, min: 0
+                                                    }
+                                                }}
+                                                variant="filled"
+                                                label="Enter value"
+                                                value={item1.stock}
+                                                disabled={item1.unlimited ? true : false}
+                                                onChange={(event) => {
+                                                    console.log('handleTextStock itemNo: ', event.target.value);
+                                                    handleTextStock(event.target.value, item1.itemNo)
+                                                }}
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={item1.unlimited}
+                                                        onChange={() => { handleChangeStock(item1.unlimited, item1.itemNo); }}
+                                                        value={item1.unlimited}
+                                                    />
+                                                }
+                                                label="Unlimited"
+                                            />
+                                        </div>
+                                        :
+                                        item1.unlimited ? 'Unlimited' : item1.stock}
+                                    </td>
+                                    <td colSpan={1}>{item1.edit ?
+                                        <IconButton component="span" className={classes.saveBtn} onClick={() => {
+                                            toggleEdit(item1.edit, item1.itemNo)
+                                        }}>
+                                            <div style={{ marginRight: '5px' }}>Save </div> <SaveIcon fontSize="small" style={{ margiLeft: "5px" }} />
+                                        </IconButton>
+                                        :
+                                        <IconButton color="primary" component="span" onClick={() => {
+                                            toggleEdit(item1.edit, item1.itemNo)
+                                        }}>
+                                            <CreateIcon />
+                                        </IconButton>
+                                    }
+                                    </td>
+                                </tr>
+                            }
+                        </>
+                    );
+                })}
             </>
         );
     };
